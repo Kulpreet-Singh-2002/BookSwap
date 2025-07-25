@@ -1,0 +1,100 @@
+<% layout('layouts/boilerplate') %>
+
+  <div class="container mt-4">
+    <div class="row">
+      <!-- Left: Image Carousel -->
+      <div class="col-md-6">
+        <div id="bookCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <% if (book.images.length> 0) { %>
+              <% book.images.forEach((img, index)=> { %>
+                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                  <img src="<%= img.url %>" class="d-block w-100 rounded" style="height: 500px; object-fit: cover;"
+                    alt="Book image">
+                </div>
+                <% }) %>
+                  <% } else { %>
+                    <div class="carousel-item active">
+                      <img src="https://via.placeholder.com/500x500?text=No+Image" class="d-block w-100 rounded"
+                        style="height: 500px; object-fit: cover;" alt="No image">
+                    </div>
+                    <% } %>
+          </div>
+
+          <% if (book.images.length> 1) { %>
+            <button class="carousel-control-prev" type="button" data-bs-target="#bookCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#bookCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+            <% } %>
+        </div>
+      </div>
+
+      <!-- Right: Book Details -->
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">
+              <%= book.title %>
+            </h3>
+            <h6 class="text-muted mb-2">by <%= book.authorName || "Unknown Author" %>
+            </h6>
+            <p class="card-text">
+              <%= book.description %>
+            </p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>ISBN:</strong>
+              <%= book.isbn || "Not provided" %>
+            </li>
+            <li class="list-group-item"><strong>Year of Publication:</strong>
+              <%= book.yearOfPublication || "Not provided" %>
+            </li>
+            <li class="list-group-item"><strong>Condition:</strong>
+              <%= book.condition || "Not mentioned" %>
+            </li>
+            <li class="list-group-item"><strong>Location:</strong>
+              <%= book.location || "Not specified" %>
+            </li>
+            <li class="list-group-item"><strong>Price:</strong> ₹<%= book.price || "N/A" %>
+            </li>
+            <li class="list-group-item">
+              <strong>Seller Contact:</strong>
+              <% if (currentUser) { %>
+                <%= book.sellerContact || "Not available" %>
+                  <% } else { %>
+                    <!-- Trigger the modal -->
+                    <button class="btn btn-warning btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#loginPromptModal">
+                      🔒 Login to view
+                    </button>
+                    <div class="text-muted mt-1 small">Login or sign up to see the seller's contact number.</div>
+                    <% } %>
+            </li>
+
+
+          </ul>
+          <% if (currentUser && book.seller && String(currentUser._id)===String(book.seller._id)) { %>
+            <div class="card-body">
+              <a href="/books/<%= book._id %>/edit" class="btn btn-info">✏️ Edit</a>
+              <form action="/books/<%= book._id %>?_method=DELETE" method="POST" class="d-inline">
+                <button class="btn btn-danger">🗑️ Delete</button>
+              </form>
+            </div>
+            <% } %>
+
+
+              <% if (book.createdAt) { %>
+                <div class="card-footer text-muted">
+                  📅 Posted on:
+                  <%= new Date(book.updatedAt).toLocaleDateString('en-IN', { day: 'numeric' , month: 'long' ,
+                    year: 'numeric' }) %>
+                </div>
+                <% } %>
+        </div>
+      </div>
+    </div>
+  </div>

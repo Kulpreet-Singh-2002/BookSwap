@@ -1,0 +1,110 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <h1 class="text-center">List a New Book</h1>
+    <div class="col-6 offset-3">
+
+        <!-- Notice for required fields -->
+        <p class="text-muted"><span class="text-danger">*</span> Required fields</p>
+
+        <form id="newBookForm" action="/books" method="POST" class="validated-form" novalidate enctype="multipart/form-data">
+            
+            <!-- Book Title -->
+            <div class="mb-3">
+                <label for="title" class="form-label"><span class="text-danger">*</span> Book Title</label>
+                <input class="form-control" type="text" id="title" name="book[title]" required>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <!-- Author Name -->
+            <div class="mb-3">
+                <label for="authorName" class="form-label"><span class="text-danger">*</span> Author Name</label>
+                <input class="form-control" type="text" id="authorName" name="book[authorName]" required>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <!-- ISBN -->
+            <div class="mb-3">
+                <label for="isbn" class="form-label"><span class="text-danger">*</span> ISBN</label>
+                <input class="form-control" type="text" id="isbn" name="book[isbn]" required pattern="\d{10}(\d{3})?" placeholder="10 or 13 digit number">
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Enter a valid 10 or 13-digit ISBN number.</div>
+            </div>
+
+            <!-- Year of Publication -->
+            <div class="mb-3">
+                <label for="yearOfPublication" class="form-label"><span class="text-danger">*</span> Year of Publication</label>
+                <input class="form-control" type="number" id="yearOfPublication" name="book[yearOfPublication]" required min="1000" max="<%= new Date().getFullYear() %>">
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <!-- Condition -->
+            <div class="mb-3">
+                <label for="condition" class="form-label"><span class="text-danger">*</span> Condition</label>
+                <select class="form-select" id="condition" name="book[condition]" required>
+                    <option value="" disabled selected>Select condition</option>
+                    <option value="Like New">Like New</option>
+                    <option value="Good">Good</option>
+                    <option value="Acceptable">Acceptable</option>
+                    <option value="Poor">Poor</option>
+                </select>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <!-- Price -->
+            <div class="mb-3">
+                <label for="price" class="form-label"><span class="text-danger">*</span> Price</label>
+                <div class="input-group">
+                    <span class="input-group-text">&#8377;</span>
+                    <input type="number" class="form-control" id="price" name="book[price]" required min="0">
+                    <span class="input-group-text">.00</span>
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="mb-3">
+                <label for="location" class="form-label"><span class="text-danger">*</span> Location</label>
+                <input class="form-control" type="text" id="location" name="book[location]" required>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label for="description" class="form-label"><span class="text-danger">*</span> Description</label>
+                <textarea class="form-control" id="description" name="book[description]" rows="3" required></textarea>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <!-- Image Upload (optional) -->
+            <div class="mb-3">
+                <label for="image" class="form-label">Image(s)</label>
+                <input class="form-control" type="file" name="image" id="image" multiple>
+            </div>
+
+            <!-- Loader -->
+            <div id="loader" class="text-center" style="display: none;">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p>Adding your book, please wait...</p>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success">📤 List Book</button>
+            </div>
+        </form>
+
+        <!-- Back Link -->
+        <div class="mb-3">
+            <a href="/books" class="btn btn-danger">⬅ Back</a>
+        </div>
+    </div>
+</div>
+
+<!-- Show loader on submit -->
+<script>
+    document.getElementById('newBookForm').addEventListener('submit', function () {
+        document.getElementById('loader').style.display = 'block';
+    });
+</script>

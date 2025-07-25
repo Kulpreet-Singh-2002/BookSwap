@@ -1,0 +1,87 @@
+<% layout('layouts/boilerplate')%>
+<div class="row">
+    <h1 class="text-center">Edit Book Listing</h1>
+    <div class="col-md-6 offset-md-3">
+
+        <form id="bookForm" action="/books/<%= book._id %>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label" for="title">Book Title</label>
+                <input class="form-control" type="text" id="title" name="book[title]" value="<%= book.title %>" required>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="authorName">Author</label>
+                <input class="form-control" type="text" id="authorName" name="book[authorName]" value="<%= book.authorName %>" required>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="isbn">ISBN</label>
+                <input class="form-control" type="text" id="isbn" name="book[isbn]" value="<%= book.isbn %>" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="yearOfPublication">Year of Publication</label>
+                <input class="form-control" type="number" id="yearOfPublication" name="book[yearOfPublication]" value="<%= book.yearOfPublication %>" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="condition">Condition</label>
+                <select class="form-select" id="condition" name="book[condition]" required>
+                    <% ['Like New', 'Good', 'Acceptable', 'Poor'].forEach(c => { %>
+                        <option value="<%= c %>" <%= book.condition === c ? 'selected' : '' %>><%= c %></option>
+                    <% }); %>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="location">Location</label>
+                <input class="form-control" type="text" id="location" name="book[location]" value="<%= book.location %>" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="price">Price (₹)</label>
+                <input class="form-control" type="number" id="price" name="book[price]" value="<%= book.price %>" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" id="description" name="book[description]" required><%= book.description %></textarea>
+            </div>
+
+            <div class="mb-3">
+                <input type="file" class="form-file-input" id="image" name="image" multiple>
+            </div>
+
+            <div class="mb-3">
+                <% book.images.forEach(function(img, i) { %>
+                    <img src="<%= img.thumbnail %>" class="img-thumbnail" alt="">
+                    <div class="form-check-inline">
+                        <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
+                        <label for="image-<%= i %>">Delete?</label>
+                    </div>
+                <% }) %>
+            </div>
+
+            <div id="loader" class="text-center" style="display: none;">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p>Saving changes, please wait...</p>
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-info">Update Book</button>
+            </div>
+
+        </form>
+        <div class="mb-3">
+            <a href="/books/<%= book._id %>" class="btn btn-danger">Back To Book</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('bookForm').addEventListener('submit', function () {
+        document.getElementById('loader').style.display = 'block';
+    });
+</script>

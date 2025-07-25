@@ -1,0 +1,71 @@
+/* =======================
+   TYPOGRAPHY & BASE FONT
+========================== */
+.mytext,
+body {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    color: #1a1a1a; /* Default readable dark text */
+    background-color: #b1dde9;
+}
+
+/* =======================
+   NAVBAR ACTIVE LINK STYLE
+========================== */
+.nav-link.active {
+    color: #000;
+    border-bottom: 2px solid #000;
+}
+
+/* =======================
+   CARD STYLING
+========================== */
+.card {
+    background-color: #ffffff;
+    color: #212529;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* =======================
+   BUTTON STYLING
+========================== */
+.btn-primary,
+.btn-outline-primary {
+    background-color: #0f3578;
+    border-color: #0f3578;
+    color: #ffffff;
+}
+
+.btn-primary:hover,
+.btn-outline-primary:hover {
+    background-color: #0b2228;
+    border-color: #0b2228;
+}
+
+/* =======================
+   OTHER TEXT STYLING
+========================== */
+.text-muted,
+.text-secondary {
+    color: #6c757d !important;
+}
+
+/* =======================
+   HEADER TEXT (optional)
+========================== */
+h1, h2, h3 {
+    font-weight: 700;
+    color: #0f3578;
+    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+    color: #0f3578;
+}

@@ -1,0 +1,68 @@
+{
+  "name": "yelpcamp",
+  "version": "1.0.0",
+  "description": "YelpCamp application for campgrounds",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "lint": "eslint '**/*.js' --quiet",
+    "lint:fix": "eslint '**/*.js' --fix --quiet",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "campgrounds",
+    "yelpcamp",
+    "nodejs",
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@maptiler/client": "^1.8.1",
+    "cloudinary": "^1.41.3",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^3.2.0",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "ejs-mate": "^4.0.0",
+    "express": "^4.19.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-session": "^1.18.0",
+    "helmet": "^7.1.0",
+    "joi": "^17.13.3",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.5.3",
+    "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^8.0.0",
+    "sanitize-html": "^2.13.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "eslint-plugin-node": "^11.1.0",
+    "nodemon": "^3.0.1"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true,
+      "es2021": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-undef": "off",
+      "no-unused-vars": "off"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/your-repo.git"
+  }
+}

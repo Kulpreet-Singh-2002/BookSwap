@@ -1,0 +1,71 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="container">
+
+        <!-- 🌟 Top Section -->
+        <div class="text-center py-5"
+            style="background: linear-gradient(to right, #0b2228, #0f3578); color: white; border-radius: 12px; margin-bottom: 2rem;">
+            <h1 class="display-4 fw-bold text-shadow" style="color: white;">📦 Your Contributions</h1>
+            <p class="lead">These are the books you’ve shared with the community. Thank you! 🙌</p>
+            <a href="/books/new" class="btn btn-warning btn-lg mt-3">📤 Sell another Book</a>
+        </div>
+
+        <% if (books.length===0) { %>
+            <div class="alert alert-info text-center fs-5">
+                You haven’t uploaded any books yet.
+            </div>
+            <% } %>
+
+                <% books.forEach(book=> { %>
+                    <div class="card mb-4 border-0 shadow-lg rounded-4 overflow-hidden">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <% if (book.images.length) { %>
+                                    <img src="<%= book.images[0].url %>" alt="Book image"
+                                        class="img-fluid rounded-start"
+                                        style="width: 400px; height: 400px; object-fit: cover;">
+                                    <% } else { %>
+                                        <img src="https://media.istockphoto.com/id/1352945762/vector/no-image-available-like-missing-picture.jpg?s=612x612&w=0&k=20&c=4X-znbt02a8EIdxwDFaxfmKvUhTnLvLMv1i1f3bToog="
+                                            alt="No image available" class="img-fluid rounded-start"
+                                            style="width: 400px; height: 400px; object-fit: cover;">
+                                        <% } %>
+                            </div>
+                            <div class="col-md-8 bg-light d-flex align-items-center">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold text-primary mb-2">
+                                        <%= book.title %> <small class="text-muted">by <%= book.authorName %></small>
+                                    </h5>
+                                    <p class="card-text text-muted" style="font-size: 0.95rem;">
+                                        <%= book.description.substring(0, 150) %>...
+                                    </p>
+                                    <p class="card-text mb-2">
+                                        <small class="text-secondary"><i class="bi bi-geo-alt-fill"></i>
+                                            <%= book.location %>
+                                        </small>
+                                    </p>
+                                    <p class="card-text mb-3">
+                                        <span class="badge bg-success">₹ <%= book.price %></span>
+
+                                        <% let conditionClass; %>
+                                            <% switch (book.condition) { case 'Like New' :
+                                                conditionClass='bg-success text-white' ; break; case 'Good' :
+                                                conditionClass='bg-primary text-white' ; break; case 'Acceptable' :
+                                                conditionClass='bg-warning text-dark' ; break; case 'Poor' :
+                                                conditionClass='bg-danger text-white' ; break; default:
+                                                conditionClass='bg-secondary text-white' ; } %>
+
+                                                <span class="ms-3 badge <%= conditionClass %>">
+                                                    <%= book.condition %>
+                                                </span>
+                                    </p>
+                                    <a href="/books/<%= book._id %>" class="btn btn-outline-primary">📘 View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+
+                        <!-- 🔁 Pagination (if you want to add later) -->
+                        <!-- You can copy pagination from index.ejs if needed -->
+
+    </div>
