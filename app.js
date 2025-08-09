@@ -55,6 +55,7 @@ const store = new MongoDBStore({
     touchAfter: 24 * 60 * 60
 });
 
+
 store.on("error", e => console.log("❗ SESSION STORE ERROR", e));
 
 const sessionConfig = {
@@ -65,7 +66,7 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: process.env.NODE_ENV === "production" && process.env.USE_HTTPS === "true",
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
@@ -96,11 +97,6 @@ app.use('/books', bookRoutes); // 📚 Book routes only
 // Home
 app.get('/', (req, res) => {
     res.render('home');
-});
-
-// 404 Error Handler
-app.get('/', (req, res) => {
-    res.render('home', { active: 'home' });
 });
 
 
